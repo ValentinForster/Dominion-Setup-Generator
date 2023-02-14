@@ -78,19 +78,11 @@ while True:
         kommt_weg = [card for card in first_selection if card not in new_selection]
         neu = [card for card in new_selection if card not in first_selection]
         print("")
-        print("Ganzes Set:")
-        for card in new_selection:
-            print(card)
-        print("-------------")
-        print("Kommt weg:")
         for card in kommt_weg:
-            print(card)
-        print("-------------")
-        print("Neu dazu:")
+            print('\x1b[6;30;41m' + "- " + card + " "*(15 - len(card) + 2) + '\x1b[0m')
         for card in neu:
-            print(card)
+            print('\x1b[6;30;42m' + "+ " + card + " "*(15 - len(card) + 2) + '\x1b[0m')
+        for card in bleibt:
+            print('\x1b[6;30;44m' + "= " + card + " "*(15 - len(card) + 2) + '\x1b[0m')
         first_selection = list(new_selection)
         del new_selection
-
-
-
