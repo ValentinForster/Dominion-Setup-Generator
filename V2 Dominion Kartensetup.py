@@ -1,8 +1,6 @@
 import random
 import copy
 
-PLAYERS = ["Vali", "Andi", "Elli", "Grexi"]
-
 basegame_cards_dict = {"Abenteurer": 4, "Bibliothek": 5, "Bürokrat": 4, "Burggraben": 2, "Dieb": 4, "Dorf": 3,
                   "Festmahl": 3, "Garten": 4, "Geldverleiher": 4, "Hexe": 5, "Holzfäller": 3, "Jahrmarkt": 5,
                   "Kanzler": 2, "Kapelle": 2, "Keller": 2, "Laboratorium": 5, "Markt": 5, "Miliz": 4, "Mine": 5,
