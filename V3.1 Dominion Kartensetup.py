@@ -11,20 +11,33 @@ BASEGAME_CARDS = ['Abenteurer', 'Bibliothek', 'Bürokrat', 'Burggraben', 'Dieb',
                        'Laboratorium', 'Markt', 'Miliz', 'Mine', 'Ratsversammlung', 'Schmiede', 'Spion',
                        'Thronsaal', 'Umbau', 'Werkstatt']
 
-CHANGED_CARDS = ["Abenteurer", "Festmahl", "Kanzler", "Spion"]
+INTRIGUE_CARDS = ["Burghof 👓", "Geheimkammer 👓", "Handlanger 👓", "Armenviertel 👓", "Große Halle 👓",
+                  "Maskerade 👓", "Trickser 👓", "Verwalter 👓", "Wunschbrunnen 👓", "Baron 👓", "Bergwerk 👓",
+                  "Brücke 👓", "Eisenhütte 👓", "Kupferschmiede 👓", "Späher 👓", "Verschwörer 👓", "Anbau 👓",
+                  "Handelsposten 👓", "Herzog 👓", "Kerkermeister 👓", "Lakai 👓", "Saboteur 👓",
+                  "Tribut 👓", "Adelige 👓", "Harem 👓"]
 
-ATTACKS = ["Hexe", "Dieb", "Miliz", "Spion", "Bürokrat"]
-COST2_CARDS = ['Burggraben', 'Kanzler', 'Kapelle', 'Keller']
-COST3_CARDS = ['Dorf', 'Festmahl', 'Holzfäller', 'Werkstatt']
-COST4_CARDS = ['Abenteurer', 'Garten', 'Geldverleiher', 'Schmiede', 'Thronsaal', 'Umbau']
-COST5_CARDS = ['Bibliothek', 'Jahrmarkt', 'Laboratorium', 'Markt', 'Mine', 'Ratsversammlung']
-ALL_TYPES = [ATTACKS, COST2_CARDS, COST3_CARDS, COST4_CARDS, COST5_CARDS]
+BOTH_COMBINED = BASEGAME_CARDS + INTRIGUE_CARDS
+
+CHANGED_CARDS = ["Abenteurer", "Festmahl", "Kanzler", "Spion", "Späher", "Herzog"] # Harem hinzufügen?
+
+ATTACKS = ["Hexe", "Dieb", "Miliz", "Spion", "Bürokrat", "Trickser 👓", "Kerkermeister 👓", "Lakai 👓", "Saboteur 👓"]
+COST2_CARDS = ['Burggraben', 'Kanzler', 'Kapelle', 'Keller', "Burghof 👓", "Geheimkammer 👓", "Handlanger 👓",
+               "Späher 👓"]
+COST3_CARDS = ['Dorf', 'Festmahl', 'Holzfäller', 'Werkstatt', "Armenviertel 👓", "Große Halle 👓", "Maskerade 👓",
+               "Verwalter 👓", "Wunschbrunnen 👓"]
+COST4_CARDS = ['Abenteurer', 'Garten', 'Geldverleiher', 'Schmiede', 'Thronsaal', 'Umbau', "Baron", "Bergwerk 👓",
+               "Brücke 👓", "Eisenhütte 👓", "Kupferschmied 👓", "Verschwörer 👓", "Herzog 👓"]
+COST5_plus_CARDS = ['Bibliothek', 'Jahrmarkt', 'Laboratorium', 'Markt', 'Mine', 'Ratsversammlung', "Anbau 👓",
+                    "Handelsposten 👓",  "Tribut 👓", "Adelige 👓", "Harem 👓"]  # Harem weg?
+
+ALL_TYPES = [ATTACKS, COST2_CARDS, COST3_CARDS, COST4_CARDS, COST5_plus_CARDS]
 
 max_attacks = 2
 max_cost2_cards = 2
 max_cost3_cards = 3
 max_cost4_cards = 2
-max_cost5_cards = 4
+max_cost5_plus_cards = 4
 
 played_cards = []
 
@@ -36,7 +49,7 @@ def choose_cards():
     copy_cost2_cards = copy.copy(COST2_CARDS)
     copy_cost3_cards = copy.copy(COST3_CARDS)
     copy_cost4_cards = copy.copy(COST4_CARDS)
-    copy_cost5_cards = copy.copy(COST5_CARDS)
+    copy_cost5_plus_cards = copy.copy(COST5_plus_CARDS)
     for i in range(0, max_attacks):
         choice = random.choice(copy_attacks)
         output.append(choice)
@@ -54,11 +67,11 @@ def choose_cards():
         output.append(choice)
         copy_cost4_cards.remove(choice)
     for i in range(1, 10 - len(output)):
-        choice = random.choice(copy_cost5_cards)
+        choice = random.choice(copy_cost5_plus_cards)
         output.append(choice)
-        copy_cost5_cards.remove(choice)
+        copy_cost5_plus_cards.remove(choice)
     if len(output) < 10:
-        supplement_list = [card for card in BASEGAME_CARDS if card not in output]
+        supplement_list = [card for card in BOTH_COMBINED if card not in output]
         for i in range(0, 10 - len(output)):
             output.append(random.choice(supplement_list))
     return output
@@ -77,10 +90,10 @@ while True:
         neu = [card for card in new_selection if card not in first_selection]
         print("")
         for card in kommt_weg:
-            print('\x1b[6;30;41m' + "- " + card + " "*(15 - len(card) + 2) + '\x1b[0m')
+            print('\x1b[6;30;41m' + "- " + card + " "*(18 - len(card)) + '\x1b[0m')
         for card in neu:
-            print('\x1b[6;30;42m' + "+ " + card + " "*(15 - len(card) + 2) + '\x1b[0m')
+            print('\x1b[6;30;42m' + "+ " + card + " "*(18 - len(card)) + '\x1b[0m')
         for card in bleibt:
-            print('\x1b[6;30;44m' + "= " + card + " "*(15 - len(card) + 2) + '\x1b[0m')
+            print('\x1b[6;30;46m' + "= " + card + " "*(18 - len(card)) + '\x1b[0m')
         first_selection = list(new_selection)
         del new_selection
